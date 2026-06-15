@@ -1,5 +1,5 @@
 # ==============================================================================
-# LOW-LEVEL FRAMEWORK: PTX KERNEL ENGINE (GPU ONLY)
+# LOW-LEVEL FRAMEWORK: PTX KERNEL ENGINE (PROJECT LOCAL)
 # BPI-BLUEPRINT: .blueprints/leaf_kernel.mk
 # ==============================================================================
 
@@ -7,34 +7,15 @@ CURRENT_DIR   := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 NAME          := $(notdir $(CURRENT_DIR))
 SRC_ROOT      := $(patsubst %/kernels/$(NAME)/,%,$(CURRENT_DIR)/)
 
-# LAUNCH_ROOT context-bepaling
+# LAUNCH_ROOT context blijft behouden voor orchestration, maar build is lokaal
 ifndef LAUNCH_ROOT
         export LAUNCH_ROOT := $(abspath $(CURRENT_DIR)/../../)/
 endif
 
-# Categorie scan via fysieke pad-analyse
-ifneq ($(findstring /projects/,$(CURRENT_DIR)),)
-        CATEGORY := projects
-else ifneq ($(findstring /cuda/,$(CURRENT_DIR)),)
-        CATEGORY := cuda
-else
-        CATEGORY := .
-endif
-
 MODE          ?= debug
-LAST_LAUNCH   := $(notdir $(patsubst %/,%,$(LAUNCH_ROOT)))
-PROJECT_NAME  := $(notdir $(abspath $(SRC_ROOT)))
 
-# ANKERING VAN DE BUILD-TREE
-ifeq ($(CATEGORY),.)
-        BUILD_DIR    := $(LAUNCH_ROOT)build/$(MODE)/kernels/$(NAME)
-else
-        ifeq ($(LAST_LAUNCH),$(PROJECT_NAME))
-                BUILD_DIR    := $(LAUNCH_ROOT)build/$(MODE)/kernels/$(NAME)
-        else
-                BUILD_DIR    := $(LAUNCH_ROOT)build/$(MODE)/$(CATEGORY)/kernels/$(NAME)
-        endif
-endif
+# ANKERING BINNEN HET PROJECT ZELF
+BUILD_DIR     := $(SRC_ROOT)/build/$(MODE)/kernels/$(NAME)
 
 # TOOLCHAIN CONFIGURATIE
 PTXAS         := ptxas
@@ -70,7 +51,7 @@ debug release: directories info $(PTX_OBJ) $(SASS_DUMP)
 info:
         @echo "=============================================================================="
         @echo $(MSG) "for GPU Kernel [$(NAME)]"
-        @echo "Launch Root:  $(LAUNCH_ROOT)"
+        @echo "Project Root: $(SRC_ROOT)"
         @echo "Kernel Src:   $(PTX_SRC)"
         @echo "Output Cubin: $(PTX_OBJ)"
         @echo "=============================================================================="
