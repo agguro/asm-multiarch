@@ -9,7 +9,7 @@
 	url = https://github.com/agguro/asm-linux-aarch.git
 [submodule "avr"]
 	path = avr
-	url = https://github.com/agguro/asm-avr.git
+	url = https://github.com/agguro/asm-linux-avr.git
 [submodule "xtensa"]
 	path = xtensa
 	url = https://github.com/agguro/asm-linux-xtensa.git
