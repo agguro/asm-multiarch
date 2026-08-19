@@ -25,3 +25,6 @@
 [submodule "projects/nuclideid"]
 	path = projects/nuclideid
 	url = https://github.com/agguro/nuclideid.git
+[submodule "xtensa"]
+	path = xtensa
+	url = https://github.com/agguro/asm-linux-xtensa.git
