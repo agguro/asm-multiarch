@@ -16,9 +16,9 @@
 [submodule "aarch"]
 	path = aarch
 	url = https://github.com/agguro/asm-linux-aarch.git
-[submodule "esp32"]
-	path = esp32
-	url = https://github.com/agguro/asm-esp32.git
+[submodule "espressif"]
+	path = espressif
+	url = https://github.com/agguro/asm-espressif-baremetal.git
 [submodule "avr"]
 	path = avr
 	url = https://github.com/agguro/asm-avr.git
