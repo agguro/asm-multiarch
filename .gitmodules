@@ -15,4 +15,4 @@
 	url = https://github.com/agguro/asm-linux-xtensa.git
 [submodule "cuda"]
 	path = cuda
-	url = https://github.com/agguro/asm-linux-cuda.git
+	url = https://github.com/agguro/asm-cuda.git
